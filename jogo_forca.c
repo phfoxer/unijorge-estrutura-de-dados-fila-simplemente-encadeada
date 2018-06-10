@@ -3,7 +3,7 @@
 #include <unistd.h>
 #include <string.h>
 #include "listLib.h"
-
+#include "stackLib.h"
 
 main()
 {
@@ -45,9 +45,14 @@ hangmanGame(char word[100]){
 	{
 		system("@cls||clear");
 		// 
-		
-		listAllAnswers(myListAnswers);
+		divider();
+		printf("Letras que acertou: "); 
+		correctLetters(myListAnswers,word);
+		divider();
+		printf("Letras utilizadas: "); listAllAnswers(myListAnswers);
+		divider();
 		scenes(errosCount);
+		divider();
 		if (errosCount < 6)
 		{
 			printf("Digite uma letra:\n", correctCount);
@@ -55,6 +60,8 @@ hangmanGame(char word[100]){
 			// Transforma o char em um inteiro equivalente na tabela ASCII
 			// https://www.asciitable.com
 			currentLetterInt = (currentLetter - 0);
+		} else {
+			myList = NULL;
 		}
 
 		// Verificar se a letra não foi encontrada
@@ -81,22 +88,48 @@ hangmanGame(char word[100]){
 			insertIntoList(&myListAnswers, currentLetter);
 		}
 	}
+	divider();
+	printf("\nA palavra correta eh: %s",word);
 
 }
 
+void correctLetters(LIST_TYPE *list, char word[100]){
+	// Tamanho da palavra
+
+	int len = strlen(word);
+	int i;
+
+	LIST_TYPE *listAux;
+	listAux = startPointer();
+	listAux = list;
+	while (listAux != NULL)
+	{
+		system("@cls||clear");
+		for (i = 0; i < len; i++)
+		{
+			int letter = (word[i] - 0);
+			if(searchItem(list, letter) == 0){
+				printf("-");
+			} else {
+				printf("%c",word[i]);
+			}
+		}
+		listAux = listAux->next;
+	}
+}
 
 void listAllAnswers(LIST_TYPE *list)
 {
 	while (list != NULL)
 	{
-		printf("%c", list->information);
+		printf("%c,", list->information);
 		list = list->next;
 	}
 }
 
 void scenes(int i)
 {
-	printf("\n\n_ _ _ _\n");
+	printf("\n_ _ _ _\n");
 	if (i == 0)
 	{
 		printf("-----|-------\n");
@@ -158,7 +191,11 @@ void scenes(int i)
 		printf("----/|\\------\n");
 		printf("----/-\\------\n");
 		printf("-------------\n");
-		printf("-you're-dead-\n");
+		printf("--Enforcado--\n");
 		printf("-------------\n");
 	}
+}
+
+void divider(){
+printf("\n_______________________________________\n");
 }
