@@ -3,7 +3,6 @@
 #include <unistd.h>
 #include <string.h>
 #include "listLib.h"
-#include "stackLib.h"
 
 main()
 {
@@ -11,6 +10,7 @@ main()
 	printf("Qual a palavra chave?\n", guessWord);
 	scanf("%[^\t\n]", &guessWord);
 	hangmanGame(guessWord);
+	system("pause");
 	return 1;
 }
 
@@ -90,7 +90,7 @@ hangmanGame(char word[100]){
 	}
 	divider();
 	printf("\nA palavra correta eh: %s",word);
-
+	
 }
 
 void correctLetters(LIST_TYPE *list, char word[100]){
