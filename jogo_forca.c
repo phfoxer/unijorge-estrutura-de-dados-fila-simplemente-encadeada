@@ -46,7 +46,7 @@ hangmanGame(char word[100]){
 		system("@cls||clear");
 		// 
 		divider();
-		printf("Letras que acertou: "); 
+
 		correctLetters(myListAnswers,word);
 		divider();
 		printf("Letras utilizadas: "); listAllAnswers(myListAnswers);
@@ -102,9 +102,14 @@ void correctLetters(LIST_TYPE *list, char word[100]){
 	LIST_TYPE *listAux;
 	listAux = startPointer();
 	listAux = list;
+	
+	
+	for (i = 0; i < len; i++){ printf("-");	}
+	char wordAux[100] = "";
 	while (listAux != NULL)
 	{
 		system("@cls||clear");
+		printf("Letras que acertou: "); 
 		for (i = 0; i < len; i++)
 		{
 			int letter = (word[i] - 0);
